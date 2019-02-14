@@ -36,16 +36,16 @@ Pequenos trechos da linha utilizada para criar uma rota
 
 api/rotas/trechos
 * Métodos
-    GET: Busca todos os trechos
+    * GET: Busca todos os trechos
 
 api/rotas/trechos/{id}
 * Métodos
-    GET: Busca por id do trecho
+    * GET: Busca por id do trecho
 
 ## Rotas
 Rota completa para ir de um ponto ao outro da linha, utilizando trechos e as direções desses trechos.
 
-Json 1
+* Json 1
 ```json
 [
     {
@@ -67,7 +67,7 @@ Json 1
 ]
 ```
 
-Json 2
+* Json 2
 ```json
 {
     "nome": "Rota 15",
@@ -86,7 +86,7 @@ Json 2
 }
 ```
 
-Json 3
+* Json 3
 ```json
 {
     "id": 1,
@@ -141,15 +141,17 @@ Json 3
 
 
 ### Endpoint
-
+```sh
 api/rotas
+```
 * Métodos
-    GET: Busca todas as rotas cadastradas sem (Json 1).
-    POST: Cria uma nova rota no cadastro
-        Obrigatório: (Json 2)
-
+   * GET: Busca todas as rotas cadastradas sem (Json 1).
+   * POST: Cria uma nova rota no cadastro
+       * Obrigatório: (Json 2)
+```sh
 api/rotas/{id}
+```
 * Métodos
-    GET: Busca por id da rota retornando os detalhes da rota (Json 3).
-    PUT: Atualiza uma rota no cadastro
-        Obrigatório: (Json 2)
+    * GET: Busca por id da rota retornando os detalhes da rota (Json 3).
+    * PUT: Atualiza uma rota no cadastro
+        * Obrigatório: (Json 2)
