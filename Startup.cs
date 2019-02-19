@@ -33,12 +33,22 @@ namespace CadastroAPI
                     .AllowAnyHeader ();
             }));
             services.AddMvc();
-            services.AddTransient<IRotasTrechoService ,RotasTrechoService>();
+
+            // service
+            services.AddTransient<IRotasTrechoService ,RotasTrechoService>();            
+            services.AddTransient<ICloneService,CloneService>();
+            services.AddTransient<IPessoasService,PessoasService>();
             services.AddTransient<IOrdemDeProducaoService, OrdemDeProducaoService>();
-            
+            // repository            
+            services.AddTransient<TbCloneCadastroRepository,TbCloneCadastroRepository>();
             services.AddTransient<TbRotasTrechoRepository,TbRotasTrechoRepository>();
             services.AddTransient<TbRotasCadastroRepository,TbRotasCadastroRepository>();
             services.AddTransient<TbRotasTrechoXRotasRepository,TbRotasTrechoXRotasRepository>();
+            services.AddTransient<TbCloneMunicipioRepository,TbCloneMunicipioRepository>();
+            services.AddTransient<TbCloneSelecaoRepository,TbCloneSelecaoRepository>();
+            services.AddTransient<TbCloneClassificacaoXCloneRepository,TbCloneClassificacaoXCloneRepository>();
+            services.AddTransient<TbCloneClassificacaoRepository,TbCloneClassificacaoRepository>();
+            services.AddTransient<TbPessoasCadastroRepository,TbPessoasCadastroRepository>();
             services.AddTransient<TbOrdemDeProducaoCadastroRepository, TbOrdemDeProducaoCadastroRepository>();
         }
 

@@ -100,12 +100,16 @@ namespace CadastroAPI.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
                 var rotaDb = await _rotasTrechoService.PostRotas(rota);
                 
                 if(rotaDb != null)
                     return Ok(rotaDb);
                  else
                     return StatusCode(500, "Não foi possivel salvar as informações no banco de dados");
+                }
+                return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
@@ -119,12 +123,16 @@ namespace CadastroAPI.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
                 var rotaDb = await _rotasTrechoService.PutRotas(id,rota);
                 
                 if(rotaDb != null)
                     return Ok(rotaDb);
                  else
                     return StatusCode(500, "Não foi possivel atualizar as informações no banco de dados");
+                }
+                return BadRequest(ModelState);
             }
             catch (Exception ex)
             {
