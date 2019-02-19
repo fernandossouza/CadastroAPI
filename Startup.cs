@@ -34,9 +34,12 @@ namespace CadastroAPI
             }));
             services.AddMvc();
             services.AddTransient<IRotasTrechoService ,RotasTrechoService>();
+            services.AddTransient<IOrdemDeProducaoService, OrdemDeProducaoService>();
+            
             services.AddTransient<TbRotasTrechoRepository,TbRotasTrechoRepository>();
             services.AddTransient<TbRotasCadastroRepository,TbRotasCadastroRepository>();
             services.AddTransient<TbRotasTrechoXRotasRepository,TbRotasTrechoXRotasRepository>();
+            services.AddTransient<TbOrdemDeProducaoCadastroRepository, TbOrdemDeProducaoCadastroRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
