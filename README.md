@@ -189,7 +189,7 @@ api/clone/municipio
    * GET: Busca todos os municípios cadastrados.
 
 ## Clone
-Endpoint para cadastro das informações de cabeçalho de um clone
+Endpoint para cadastro das informações do cabeçalho de um clone
 
 * Json 1 - Get
 ```json
