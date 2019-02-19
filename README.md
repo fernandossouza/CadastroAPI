@@ -155,3 +155,35 @@ api/rotas/{id}
     * GET: Busca por id da rota retornando os detalhes da rota (Json 3).
     * PUT: Atualiza uma rota no cadastro
         * Obrigatório: (Json 2)
+
+## Ordem De Producao
+* JSON
+```
+{
+    "id": 1,
+    "op": "def4567",
+    "qntMudas": 1,
+    "qntLotes": 2,
+    "qntProduzida": 3,
+    "qntPerdida": 4,
+    "idClone": 1
+}
+```
+### Endpoint
+```sh
+api/ordemproducao
+```
+* Métodos
+    * GET: Busca todas as ordens de producão
+    * POST: Cria uma nova Ordem de Producao
+        * Obrigatório mandar o JSON de ordem de produção no BODY
+    * PUT: edita uma data Ordem de Producação
+        * Obrigatório mandar o JSON de ordem de produção no BODY
+
+### Endpoint
+```sh
+api/ordemproducao/{id}
+```
+* Métodos
+    * GET: Busca uma Ordem de Produção por id
+        * Obrigatório enviar o {id} como valor numérico

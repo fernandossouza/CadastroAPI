@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CadastroAPI.Controllers
 {
-    [Route("ordemproducao")]
+    [Route("api/ordemproducao")]
     public class OrdemDeProducaoController: Controller
     {
         private readonly IOrdemDeProducaoService _ordemService;
