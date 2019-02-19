@@ -2,8 +2,10 @@
 
 Api responsável pelos cadastros de várias entidade do sistema
 
-## Cadastro
+## Cadastros Entidades
 * Rotas
+* Clones
+
 
 # Rotas
 
