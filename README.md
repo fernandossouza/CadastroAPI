@@ -156,10 +156,11 @@ api/rotas/{id}
     * PUT: Atualiza uma rota no cadastro
         * Obrigatório: Body (Json 2)
 
+---------------------------------------------------------------------------------------
 # Clone
 Endpoints para telas de cadastro de clones
 
-## Municipio
+## Município
 Municípios que cadastrados no sistema.
 
 * Json Municípo
@@ -318,7 +319,7 @@ api/clone/{id}
 * Métodos
    * GET: Busca pelo id de cadastro do clone (JSon 2).
    * PUT: Atualiza as informações do clone.
-    * Obrigatório: Body (Json 3)
+        * Obrigatório: Body (Json 3)
 
 
 ## Seleção
@@ -433,9 +434,9 @@ api/clone/selecao/{cloneId}
 ```
 * Métodos
    * POST: Cadastra as informações da seleção e classificação.
-    * Obrigatório: Body (JSon 2)
+        * Obrigatório: Body (JSon 2)
 
    * PUT: Atualiza as informações da seleção e classificação.
-    * Obrigatório: Body (Json 2)
+        * Obrigatório: Body (Json 2)
 
 
