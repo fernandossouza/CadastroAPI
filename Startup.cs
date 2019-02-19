@@ -33,11 +33,12 @@ namespace CadastroAPI
                     .AllowAnyHeader ();
             }));
             services.AddMvc();
+
             // service
             services.AddTransient<IRotasTrechoService ,RotasTrechoService>();            
             services.AddTransient<ICloneService,CloneService>();
             services.AddTransient<IPessoasService,PessoasService>();
-
+            services.AddTransient<IOrdemDeProducaoService, OrdemDeProducaoService>();
             // repository            
             services.AddTransient<TbCloneCadastroRepository,TbCloneCadastroRepository>();
             services.AddTransient<TbRotasTrechoRepository,TbRotasTrechoRepository>();
@@ -48,6 +49,7 @@ namespace CadastroAPI
             services.AddTransient<TbCloneClassificacaoXCloneRepository,TbCloneClassificacaoXCloneRepository>();
             services.AddTransient<TbCloneClassificacaoRepository,TbCloneClassificacaoRepository>();
             services.AddTransient<TbPessoasCadastroRepository,TbPessoasCadastroRepository>();
+            services.AddTransient<TbOrdemDeProducaoCadastroRepository, TbOrdemDeProducaoCadastroRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
