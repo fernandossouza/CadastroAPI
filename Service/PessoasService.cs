@@ -49,6 +49,8 @@ namespace CadastroAPI.Service
 
                 if (pessoa == null)
                     throw new Exception("Erro ao tentar atualizar as informações, por favor tente outra vez.");
+
+                pessoa = await GetPessoa(pessoa.id);
             }
 
             return pessoa;

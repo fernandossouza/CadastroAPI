@@ -60,10 +60,7 @@ namespace CadastroAPI.Models.Repository
             int updateRow;
             string sSql = string.Empty;
             sSql = "UPDATE [SPI_TB_PESSOA_CADASTRO]";
-            sSql += "SET [matricula] = @matricula, [nome] = @nome, [admissao] = @admissao, [cargo] = @cargo,";
-            sSql += "[dataNascimento] = @dataNascimento, [estadoCivil] = @estadoCivil, [sexo] = @sexo, [nivelEscolar] = @nivelEscolar,";
-            sSql += "[escalaTrabalho] = @escalaTrabalho, [municipioOrigem] = @municipioOrigem, [situacao] = @situacao, [ativo] = @ativo, ";
-            sSql += "[crachaRFID] = @crachaRFID, [login] = @login, [password] = @password ";
+            sSql += "SET [ativo] = @ativo, [crachaRFID] = @crachaRFID, [login] = @login, [password] = @password ";
             sSql += "WHERE [id] in (@id)";
 
             using (IDbConnection db = new SqlConnection(stringConnection))
