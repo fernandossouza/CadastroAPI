@@ -26,7 +26,7 @@ namespace CadastroAPI.Models.Repository
             sSql = "SELECT id, matricula, nome, admissao, cargo,";
             sSql += "dataNascimento, estadoCivil, sexo, nivelEscolar,";
             sSql += "escalaTrabalho, municipioOrigem, situacao, ativo,";
-            sSql += "tempoEmpresa, crachaRFID, login, password ";
+            sSql += "tempoEmpresa, crachaRFID, login, password, imagem ";
             sSql += "FROM SPI_TB_PESSOA_CADASTRO";
 
             using (IDbConnection db = new SqlConnection(stringConnection))
@@ -44,7 +44,7 @@ namespace CadastroAPI.Models.Repository
             sSql = "SELECT id, matricula, nome, admissao, cargo,";
             sSql += "dataNascimento, estadoCivil, sexo, nivelEscolar,";
             sSql += "escalaTrabalho, municipioOrigem, situacao, ativo,";
-            sSql += "tempoEmpresa, crachaRFID, login, password ";
+            sSql += "tempoEmpresa, crachaRFID, login, password, imagem ";
             sSql += "FROM SPI_TB_PESSOA_CADASTRO ";
             sSql += "WHERE id in(" + id.ToString() + ")";
 
@@ -60,7 +60,7 @@ namespace CadastroAPI.Models.Repository
             int updateRow;
             string sSql = string.Empty;
             sSql = "UPDATE [SPI_TB_PESSOA_CADASTRO]";
-            sSql += "SET [ativo] = @ativo, [crachaRFID] = @crachaRFID, [login] = @login, [password] = @password ";
+            sSql += "SET [ativo] = @ativo, [crachaRFID] = @crachaRFID, [login] = @login, [password] = @password, [imagem] = @imagem ";
             sSql += "WHERE [id] in (@id)";
 
             using (IDbConnection db = new SqlConnection(stringConnection))

@@ -48,5 +48,6 @@ namespace CadastroAPI.Models
         public string password { get; set; }
         [Required]
         public bool ativo { get; set; }
+        public string imagem { get; set; }
     }
 }

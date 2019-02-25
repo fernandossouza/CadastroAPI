@@ -38,10 +38,11 @@ namespace CadastroAPI.Models.Repository
         {
             IEnumerable<TbRotasCadastro> rota;
             string sSql = string.Empty;
-            sSql = "SELECT R.*,RT.*,T.*,S.*,I.*,F.*";
+            sSql = "SELECT R.*,RT.*,T.*,S.*,I.*,F.*,PT.*";
             sSql = sSql + " FROM [SPI_TB_ROTAS_CADASTRADOS] AS R ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS_POR_ROTAS] AS RT ON R.id = RT.rotaId ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_SENTIDOS] AS S ON RT.sentidoId = S.id ";
+            sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_PROXIMO_TRECHOS] AS PT ON PT.sentidoId = S.Id ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS] AS T ON S.trechoId = T.id ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS_INICIO] AS I ON R.inicioId = I.id ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS_FINAL] AS F ON R.fimId = F.id ";
@@ -52,22 +53,26 @@ namespace CadastroAPI.Models.Repository
             using(IDbConnection db = new SqlConnection(stringConnection)){                
                
                 var lookup = new Dictionary<long,TbRotasCadastro>();
-                db.Query<TbRotasCadastro,TbRotasTrechoXRotas,TbRotasTrecho,TbRotasSentido,TbRotasTrechoInicio,TbRotasTrechoFinal,TbRotasCadastro>
-                (sSql,(r,tr,t,s,i,f) =>
+                db.Query<TbRotasCadastro,TbRotasTrechoXRotas,TbRotasTrecho,TbRotasSentido,TbRotasProximoTrecho,TbRotasTrechoInicio,TbRotasTrechoFinal
+                ,TbRotasCadastro>
+                (sSql,(r,tr,t,s,pt,i,f) =>
                 {
                 TbRotasCadastro oRota;
                 if (!lookup.TryGetValue(r.id, out oRota)) {
                          lookup.Add(r.id, oRota = r);
                      }
-                     if (oRota.trechoRota == null) 
-                         oRota.trechoRota = new List<TbRotasTrecho>();
+                    if (oRota.trechoRota == null) 
+                        oRota.trechoRota = new List<TbRotasTrecho>();
 
-                     oRota.trechoRota.Add(t);
+                    oRota.trechoRota.Add(t);
 
-                     if (t.direcao == null) 
-                         t.direcao = new List<TbRotasSentido>();
+                    if (t.direcao == null) 
+                        t.direcao = new List<TbRotasSentido>();
+                    t.direcao.Add(s);
 
-                     t.direcao.Add(s);
+                    if(s.proximoTrecho == null)
+                        s.proximoTrecho = new List<TbRotasProximoTrecho>();
+                    s.proximoTrecho.Add(pt);
 
                      if(oRota.trechoId == null)
                         oRota.trechoId = new List<TbRotasTrechoXRotas>();
@@ -81,8 +86,7 @@ namespace CadastroAPI.Models.Repository
                         oRota.fim = new TbRotasTrechoFinal();
                     oRota.fim = f;
 
-
-                     return oRota;
+                    return oRota;
 
                  }).AsQueryable();
                  rota = lookup.Values;
