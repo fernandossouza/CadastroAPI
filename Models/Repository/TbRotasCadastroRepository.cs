@@ -121,7 +121,7 @@ namespace CadastroAPI.Models.Repository
             int updateRow;
             string sSql = string.Empty;
             sSql = "UPDATE [SPI_TB_ROTAS_CADASTRADOS] ";
-            sSql = sSql + " SET [nome] = @nome ,[prioridade] = @prioridade ,[ativo] = @ativo [INICIOID] = @inicioId,[FIMID] = @fimId";
+            sSql = sSql + " SET [nome] = @nome ,[prioridade] = @prioridade ,[ativo] = @ativo, [INICIOID] = @inicioId,[FIMID] = @fimId";
             sSql = sSql + " WHERE [id] = @id ";
 
             
