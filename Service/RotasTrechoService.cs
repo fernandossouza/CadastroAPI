@@ -37,6 +37,16 @@ namespace CadastroAPI.Service
 
             rotas = await _TbRotasCadastroRepository.GetRotaId(id);
 
+            foreach(var trechoRota in rotas.trechoRota)
+            {
+                var trechoDb = (await _TbRotasTrechoRepository.GetTrechoAll(trechoRota.id)).FirstOrDefault();
+
+                foreach(var direcao in trechoRota.direcao)
+                {
+                    direcao.proximoTrecho = trechoDb.direcao.Where(x=>x.id == direcao.id).FirstOrDefault().proximoTrecho;
+                }
+            }
+
             return rotas;
         }
 
