@@ -15,5 +15,9 @@ namespace CadastroAPI.Models
         public bool ativo{get;set;}
         public ICollection<TbRotasTrechoXRotas> trechoId{get;set;}
         public ICollection<TbRotasTrecho> trechoRota{get;set;}
+        public long inicioId{get;set;}
+        public TbRotasTrechoInicio inicio{get;set;}
+        public long fimId{get;set;}
+        public TbRotasTrechoFinal fim{get;set;}
     }
 }

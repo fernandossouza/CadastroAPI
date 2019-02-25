@@ -441,4 +441,205 @@ api/clone/selecao/{cloneId}
    * PUT: Atualiza as informações da seleção e classificação.
         * Obrigatório: Body (Json 2)
 
+# Pessoas
 
+ 
+
+API com a função de editar e vizualizar pessoas.
+
+ 
+
+* Json 1 - GET
+
+```json
+
+{
+
+    "id": 1,
+
+    "matricula": "12345",
+
+    "nome": "Fulano",
+
+    "admissão": "0001-01-01T00:00:00",
+
+    "cargo": "ajudante",
+
+    "dtNasc": "0001-01-01T00:00:00",
+
+    "estadoCivil": "Solteiro",
+
+    "sexo": "Masculino",
+
+    "nvEscolar": null,
+
+    "escalaTrabalho": "Integral",
+
+    "municipioOrigem": "São Caetano do Sul",
+
+    "situação": null,
+
+    "tempoEmpresa": "366",
+
+    "crachaRFID": null,
+
+    "login": "fulanin",
+
+    "password": null,
+
+    "ativo": true
+
+}
+
+```
+
+ 
+
+* Json 2 - PUT
+
+```json
+
+{
+
+    "id": 1,
+
+    "matricula": "12345",
+
+    "nome": "Fulano",
+
+    "admissão": "0001-01-01T00:00:00",
+
+    "cargo": "ajudante",
+
+    "dtNasc": "0001-01-01T00:00:00",
+
+    "estadoCivil": "Solteiro",
+
+    "sexo": "Masculino",
+
+    "nvEscolar": null,
+
+    "escalaTrabalho": "Integral",
+
+    "municipioOrigem": "São Caetano do Sul",
+
+    "situação": null,
+
+    "crachaRFID": null,
+
+    "login": "fulanin",
+
+    "password": null,
+
+    "ativo": true
+
+}
+
+```
+
+ 
+
+### Endpoint
+ 
+```sh
+api/Pessoas
+```
+* Métodos
+
+    * GET: Busca todas as pessoas (json 1)
+
+ 
+```sh
+api/Pessoas/{id}
+```
+* Métodos
+
+    * GET: Busca pessoa por id (json 1)
+
+ 
+```sh
+api/Pessoas/id
+```
+* Métodos
+
+    * PUT: Busca pessoa por id para que seja feita a alteração de qualquer campo onde essa ação seja permitida (json 2)
+
+
+--------------------------------------------------------------
+
+# Lote
+Endpoint para cadastro e retorno dos lotes cadastrados
+
+* Json 1  - Get
+```json
+[
+    {
+        "id": 4,
+        "ordemProducaoId": 2,
+        "qntMuda": 1,
+        "qntPerdida": 1,
+        "status": true,
+        "semana": 1,
+        "lote": "1"
+    },
+    {
+        "id": 5,
+        "ordemProducaoId": 2,
+        "qntMuda": 1,
+        "qntPerdida": 1,
+        "status": true,
+        "semana": 1,
+        "lote": "1"
+    },
+    {
+        "id": 6,
+        "ordemProducaoId": 2,
+        "qntMuda": 1,
+        "qntPerdida": 1,
+        "status": true,
+        "semana": 1,
+        "lote": "1"
+    }
+]
+
+* Json 2 - Get por Id
+```json
+
+ {
+    "id": 4,
+    "ordemProducaoId": 2,
+    "qntMuda": 1,
+    "qntPerdida": 1,
+    "status": true,
+    "semana": 1,
+    "lote": "1"
+ }
+
+
+* Json 3 - POST
+```json
+
+ {
+    "id": 6,
+    "ordemProducaoId": 2,
+    "qntMuda": 1,
+    "qntPerdida": 1,
+    "status": true,
+    "semana": 1,
+    "lote": "1"
+ }
+```
+
+### Endpoint
+```sh
+/api/lote
+```
+* Métodos
+    * GET: Busca todos os lotes
+```sh
+/api/lote/{id}
+```
+* Métodos
+    * GET: Busca por id do lote
+    * POST: Cadastra as informações do lote
+        * Obrigatório: Body (JSon 3) 

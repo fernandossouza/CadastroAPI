@@ -12,6 +12,8 @@ namespace CadastroAPI.Service.Interface
          Task<TbRotasCadastro> GetRotas(long id);
          Task<TbRotasCadastro> PostRotas(TbRotasCadastro rota);
          Task<TbRotasCadastro> PutRotas(long id,TbRotasCadastro rota);
+         Task<IEnumerable<TbRotasTrechoInicio>> GetTrechoInicial();
+         
 
          
 

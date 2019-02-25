@@ -11,12 +11,14 @@ namespace CadastroAPI.Service
         private readonly TbRotasTrechoRepository _TbRotasTrechoRepository;
         private readonly TbRotasCadastroRepository _TbRotasCadastroRepository;
         private readonly TbRotasTrechoXRotasRepository _TbRotasTrechoXRotasRepository;
+        private readonly TbRotasTrechoInicioRepository _TbRotasTrechoInicioRepository;
         public RotasTrechoService(TbRotasTrechoRepository tbRotasTrechoRepository, TbRotasCadastroRepository tbRotasCadastroRepository,
-        TbRotasTrechoXRotasRepository tbRotasTrechoXRotasRepository)
+        TbRotasTrechoXRotasRepository tbRotasTrechoXRotasRepository, TbRotasTrechoInicioRepository tbRotasTrechoInicioRepository)
         {
             _TbRotasTrechoRepository = tbRotasTrechoRepository;
             _TbRotasCadastroRepository = tbRotasCadastroRepository;
             _TbRotasTrechoXRotasRepository = tbRotasTrechoXRotasRepository;
+            _TbRotasTrechoInicioRepository = tbRotasTrechoInicioRepository;
         }
 
 
@@ -36,6 +38,23 @@ namespace CadastroAPI.Service
             rotas = await _TbRotasCadastroRepository.GetRotaId(id);
 
             return rotas;
+        }
+
+        public async Task<IEnumerable<TbRotasTrechoInicio>> GetTrechoInicial()
+        {
+            IEnumerable<TbRotasTrechoInicio> rotasTrechoList;
+
+            rotasTrechoList = await _TbRotasTrechoInicioRepository.GetTrechoAll();
+
+            foreach(var trecho in rotasTrechoList)
+            {
+                var trechoDb = await GetTrechos(trecho.trechoId);
+
+                if(trechoDb !=null || trechoDb.Count() >0)
+                    trecho.trecho = trechoDb.FirstOrDefault();
+            }
+
+            return rotasTrechoList;
         }
 
         public async Task<IEnumerable<TbRotasTrecho>> GetTrechos(long id)

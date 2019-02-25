@@ -38,11 +38,13 @@ namespace CadastroAPI.Models.Repository
         {
             IEnumerable<TbRotasCadastro> rota;
             string sSql = string.Empty;
-            sSql = "SELECT R.*,RT.*,T.*,S.* ";
+            sSql = "SELECT R.*,RT.*,T.*,S.*,I.*,F.*";
             sSql = sSql + " FROM [SPI_TB_ROTAS_CADASTRADOS] AS R ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS_POR_ROTAS] AS RT ON R.id = RT.rotaId ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_SENTIDOS] AS S ON RT.sentidoId = S.id ";
             sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS] AS T ON S.trechoId = T.id ";
+            sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS_INICIO] AS I ON R.inicioId = I.id ";
+            sSql = sSql + " LEFT JOIN [SPI_TB_ROTAS_TRECHOS_FINAL] AS F ON R.fimId = F.id ";
             sSql = sSql + " WHERE R.id = " + id.ToString();
             sSql = sSql + " ORDER BY RT.ordem ";
 
@@ -50,7 +52,8 @@ namespace CadastroAPI.Models.Repository
             using(IDbConnection db = new SqlConnection(stringConnection)){                
                
                 var lookup = new Dictionary<long,TbRotasCadastro>();
-                db.Query<TbRotasCadastro,TbRotasTrechoXRotas,TbRotasTrecho,TbRotasSentido,TbRotasCadastro>(sSql,(r,tr,t,s) =>
+                db.Query<TbRotasCadastro,TbRotasTrechoXRotas,TbRotasTrecho,TbRotasSentido,TbRotasTrechoInicio,TbRotasTrechoFinal,TbRotasCadastro>
+                (sSql,(r,tr,t,s,i,f) =>
                 {
                 TbRotasCadastro oRota;
                 if (!lookup.TryGetValue(r.id, out oRota)) {
@@ -68,8 +71,16 @@ namespace CadastroAPI.Models.Repository
 
                      if(oRota.trechoId == null)
                         oRota.trechoId = new List<TbRotasTrechoXRotas>();
-
                     oRota.trechoId.Add(tr);
+
+                    if(oRota.inicio == null)
+                        oRota.inicio = new TbRotasTrechoInicio();
+                    oRota.inicio = i;
+
+                    if(oRota.fim == null)
+                        oRota.fim = new TbRotasTrechoFinal();
+                    oRota.fim = f;
+
 
                      return oRota;
 
@@ -87,8 +98,8 @@ namespace CadastroAPI.Models.Repository
         {
             IEnumerable<long> insertRow;
             string sSql = string.Empty;
-            sSql = "INSERT INTO [SPI_TB_ROTAS_CADASTRADOS]([NOME],[PRIORIDADE],[ATIVO]) ";
-            sSql = sSql + " VALUES (@nome,@prioridade,@ativo) ";
+            sSql = "INSERT INTO [SPI_TB_ROTAS_CADASTRADOS]([NOME],[PRIORIDADE],[ATIVO],[INICIOID],[FIMID]) ";
+            sSql = sSql + " VALUES (@nome,@prioridade,@ativo,@inicioId,@fimId) ";
             sSql = sSql + " SELECT @@IDENTITY ";
 
             
@@ -110,7 +121,7 @@ namespace CadastroAPI.Models.Repository
             int updateRow;
             string sSql = string.Empty;
             sSql = "UPDATE [SPI_TB_ROTAS_CADASTRADOS] ";
-            sSql = sSql + " SET [nome] = @nome ,[prioridade] = @prioridade ,[ativo] = @ativo ";
+            sSql = sSql + " SET [nome] = @nome ,[prioridade] = @prioridade ,[ativo] = @ativo [INICIOID] = @inicioId,[FIMID] = @fimId";
             sSql = sSql + " WHERE [id] = @id ";
 
             

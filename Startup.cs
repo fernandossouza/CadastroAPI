@@ -39,6 +39,7 @@ namespace CadastroAPI
             services.AddTransient<ICloneService,CloneService>();
             services.AddTransient<IPessoasService,PessoasService>();
             services.AddTransient<IOrdemDeProducaoService, OrdemDeProducaoService>();
+            services.AddTransient<ILoteService, LoteService>();
             // repository            
             services.AddTransient<TbCloneCadastroRepository,TbCloneCadastroRepository>();
             services.AddTransient<TbRotasTrechoRepository,TbRotasTrechoRepository>();
@@ -50,11 +51,14 @@ namespace CadastroAPI
             services.AddTransient<TbCloneClassificacaoRepository,TbCloneClassificacaoRepository>();
             services.AddTransient<TbPessoasCadastroRepository,TbPessoasCadastroRepository>();
             services.AddTransient<TbOrdemDeProducaoCadastroRepository, TbOrdemDeProducaoCadastroRepository>();
+            services.AddTransient<TbRotasTrechoInicioRepository,TbRotasTrechoInicioRepository>();
+            services.AddTransient<TbLoteCadastroRepository, TbLoteCadastroRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors ("CorsPolicy");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

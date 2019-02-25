@@ -56,6 +56,24 @@ namespace CadastroAPI.Controllers
             }
         }
 
+        [HttpGet("trechos/inicio")]
+        public async Task<IActionResult> GetTrechoInicio()
+        {
+            try
+            {
+                var trechos = await _rotasTrechoService.GetTrechoInicial();
+                
+                if(trechos.Count()>0)
+                    return Ok(trechos);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         // GET api/rotas
         [HttpGet()]
         public async Task<IActionResult> GetRotas()
