@@ -70,6 +70,24 @@ namespace CadastroAPI.Models.Repository
             return ordem.FirstOrDefault();
         }
 
+        public async Task<IEnumerable<TbLoteCadastro>> GetSemanaVigente(int numeroSemana)
+        {
+            IEnumerable<TbLoteCadastro> ordem;
+            string sSql = "SELECT * ";
+            sSql += "FROM [SPI_TB_Lote_CADASTRO]";
+            sSql += "WHERE semana = " + numeroSemana.ToString();
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                ordem = await db.QueryAsync<TbLoteCadastro>(sSql);
+            }
+
+            if(ordem == null || ordem.Count() == 0)
+                return null;
+            
+            return ordem;
+        }
+
         // public async Task<TbOrdemDeProducaoCadastro> Update(TbOrdemDeProducaoCadastro ordem)
         // {
         //     long updatedRow;

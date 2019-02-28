@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using CadastroAPI.Models;
 using CadastroAPI.Models.Repository;
@@ -29,6 +31,16 @@ namespace CadastroAPI.Service
         {
             var lote = await _loteRepository.GetList();
             return lote;
+        }
+
+        public async Task<IEnumerable<TbLoteCadastro>> GetSemanaVigenteAsync()
+        {
+
+            int numeroSemana = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+
+            var loteList = await _loteRepository.GetSemanaVigente(numeroSemana);
+
+            return loteList;
         }
     }
 }

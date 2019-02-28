@@ -643,3 +643,7 @@ Endpoint para cadastro e retorno dos lotes cadastrados
     * GET: Busca por id do lote
     * POST: Cadastra as informações do lote
         * Obrigatório: Body (JSon 3) 
+```sh
+/api/lote/semanaVigente
+```
+    * GET: Retorna apenas os lote da semana vigente
