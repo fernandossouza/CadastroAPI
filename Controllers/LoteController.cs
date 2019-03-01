@@ -25,7 +25,7 @@ namespace CadastroAPI.Controllers
             return Ok(lote);
         }
 
-        [HttpGet("SemanaVigente")]
+        [HttpGet("SemanaVigente/")]
         public async Task<IActionResult> GetLoteSemanaVigente()
         {
             var lote = await _loteService.GetSemanaVigenteAsync();

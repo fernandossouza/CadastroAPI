@@ -23,8 +23,9 @@ namespace CadastroAPI.Models.Repository
         public async Task<IEnumerable<TbOrdemDeProducaoCadastro>> GetList()
         {
             IEnumerable<TbOrdemDeProducaoCadastro> orderList;
-            string sSql = "SELECT [id],[OP],[qntMudas],[qntLotes],[qntProduzida],[qntPerdida],[idClone]";
-            sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_ORDEMDEPRODUCAO_CADASTRO]";
+            string sSql = "SELECT OP.*,C.[codigo] as clone ";
+            sSql += " FROM [SPI_TB_ORDEMDEPRODUCAO_CADASTRO] AS OP ";
+            sSql += " INNER JOIN [SPI_TB_CLONE_CADASTRADO] AS C ON OP.[idClone]  = C.[id]";
 
             using(IDbConnection db = new SqlConnection(_connectionString)){
                 orderList = await db.QueryAsync<TbOrdemDeProducaoCadastro>(sSql);

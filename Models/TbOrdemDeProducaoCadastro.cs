@@ -9,5 +9,6 @@ namespace CadastroAPI.Models
         public int qntProduzida { get; set; }
         public int qntPerdida { get; set; }
         public long idClone { get; set; }
+        public string clone{get;set;}
     }
 }
