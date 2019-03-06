@@ -11,23 +11,36 @@ namespace CadastroAPI.Service
     public class LoteService : ILoteService
     {
         private readonly TbLoteCadastroRepository _loteRepository;
-        private readonly TbOrdemDeProducaoCadastroRepository _ordemProducaoRepository;
-        private readonly TbCloneCadastroRepository _cloneRepository;
-        public LoteService ( TbLoteCadastroRepository loteRepository, TbOrdemDeProducaoCadastroRepository ordemProducaoRepository, TbCloneCadastroRepository cloneRepository)
+        private readonly IOrdemDeProducaoService _ordemProducaoService;
+        public LoteService ( TbLoteCadastroRepository loteRepository, IOrdemDeProducaoService ordemProducaoService)
         {
             _loteRepository = loteRepository;
-            _ordemProducaoRepository = ordemProducaoRepository;
-            _cloneRepository = cloneRepository;
+            _ordemProducaoService = ordemProducaoService;
         }
         public async Task<TbLoteCadastro> AddAsync(TbLoteCadastro lote)
         {
-            var oP = await _ordemProducaoRepository.Get(lote.Id);
+            var oP = await _ordemProducaoService.GetAsync(lote.ordemProducaoId);
 
             if(oP == null)
                 throw new Exception(" Ordem de produção não encontrada");
 
             lote.ordemProducao = oP.op;
             lote.clone = oP.clone;
+
+            if(string.IsNullOrWhiteSpace(lote.lote))
+            {
+                // Criando nomeclatura do LOTE "S + Semana do Ano + Nome do Clone + Mês + Ano"
+                lote.lote ="S";
+                var numeroSemana =CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+                if(numeroSemana.ToString().Length == 1)
+                    lote.lote += "0";
+                lote.lote += numeroSemana.ToString();
+
+                lote.lote += oP.clone;
+
+                lote.lote += DateTime.Now.ToString("MMyy");
+
+            }
 
             var insertedOrder = await _loteRepository.Insert(lote);
             return insertedOrder;

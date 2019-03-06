@@ -57,7 +57,7 @@ namespace CadastroAPI.Models.Repository
         public async Task<TbOrdemDeProducaoCadastro> Get(long id)
         {
             IEnumerable<TbOrdemDeProducaoCadastro> ordem;
-            string sSql = "SELECT [id],[OP],[qntMudas],[qntLotes],[qntProduzida],[qntPerdida],[idClone]";
+            string sSql = "SELECT * ";
             sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_ORDEMDEPRODUCAO_CADASTRO]";
             sSql += "WHERE id = " + id.ToString();
 
