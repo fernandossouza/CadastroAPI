@@ -11,12 +11,24 @@ namespace CadastroAPI.Service
     public class LoteService : ILoteService
     {
         private readonly TbLoteCadastroRepository _loteRepository;
-        public LoteService ( TbLoteCadastroRepository loteRepository )
+        private readonly TbOrdemDeProducaoCadastroRepository _ordemProducaoRepository;
+        private readonly TbCloneCadastroRepository _cloneRepository;
+        public LoteService ( TbLoteCadastroRepository loteRepository, TbOrdemDeProducaoCadastroRepository ordemProducaoRepository, TbCloneCadastroRepository cloneRepository)
         {
             _loteRepository = loteRepository;
+            _ordemProducaoRepository = ordemProducaoRepository;
+            _cloneRepository = cloneRepository;
         }
         public async Task<TbLoteCadastro> AddAsync(TbLoteCadastro lote)
         {
+            var oP = await _ordemProducaoRepository.Get(lote.Id);
+
+            if(oP == null)
+                throw new Exception(" Ordem de produção não encontrada");
+
+            lote.ordemProducao = oP.op;
+            lote.clone = oP.clone;
+
             var insertedOrder = await _loteRepository.Insert(lote);
             return insertedOrder;
         }

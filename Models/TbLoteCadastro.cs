@@ -9,5 +9,7 @@ namespace CadastroAPI.Models
         public bool status {get; set;}
         public int semana {get; set;}
         public string lote {get; set;}
+        public string ordemProducao{get;set;}
+        public string clone{get;set;}
     }
 }

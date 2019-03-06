@@ -22,7 +22,7 @@ namespace CadastroAPI.Models.Repository
         public async Task<IEnumerable<TbLoteCadastro>> GetList()
         {
             IEnumerable<TbLoteCadastro> orderList;
-            string sSql = "SELECT [id],[ordemProducaoId],[qntMuda],[qntPerdida], [status], [semana], [lote]";
+            string sSql = "SELECT * ";
             sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_LOTE_CADASTRO]";
 
             using(IDbConnection db = new SqlConnection(_connectionString)){
@@ -35,8 +35,8 @@ namespace CadastroAPI.Models.Repository
         public async Task<TbLoteCadastro> Insert(TbLoteCadastro lote)
         {
             IEnumerable<long> insertRow;
-            string sSql = "INSERT INTO [SPI_TB_LOTE_CADASTRO] ([ordemProducaoId],[qntMuda],[qntPerdida], [status], [semana], [lote])";
-            sSql +=  " VALUES (@ordemProducaoId, @qntMuda, @qntPerdida, @status, @semana, @lote)";
+            string sSql = "INSERT INTO [SPI_TB_LOTE_CADASTRO] ([ordemProducaoId],[qntMuda],[qntPerdida], [status], [semana], [lote],[ordemProducao],[clone])";
+            sSql +=  " VALUES (@ordemProducaoId, @qntMuda, @qntPerdida, @status, @semana, @lote,@ordemProducao,@clone)";
             sSql +=  " SELECT @@IDENTITY";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
@@ -55,7 +55,7 @@ namespace CadastroAPI.Models.Repository
         public async Task<TbLoteCadastro> Get(long id)
         {
             IEnumerable<TbLoteCadastro> ordem;
-            string sSql = "SELECT [id],[ordemProducaoId],[qntMuda],[qntPerdida], [status], [semana], [lote]";
+            string sSql = "SELECT * ";
             sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_Lote_CADASTRO]";
             sSql += "WHERE id = " + id.ToString();
 
