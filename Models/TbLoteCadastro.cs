@@ -11,5 +11,6 @@ namespace CadastroAPI.Models
         public string lote {get; set;}
         public string ordemProducao{get;set;}
         public string clone{get;set;}
+        public string sufixo{get;set;}
     }
 }

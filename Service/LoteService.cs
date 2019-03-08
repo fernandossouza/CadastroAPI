@@ -19,6 +19,7 @@ namespace CadastroAPI.Service
         }
         public async Task<TbLoteCadastro> AddAsync(TbLoteCadastro lote)
         {
+            var numeroSemana =CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
             var oP = await _ordemProducaoService.GetAsync(lote.ordemProducaoId);
 
             if(oP == null)
@@ -31,7 +32,7 @@ namespace CadastroAPI.Service
             {
                 // Criando nomeclatura do LOTE "S + Semana do Ano + Nome do Clone + Mês + Ano"
                 lote.lote ="S";
-                var numeroSemana =CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(DateTime.Now, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+               
                 if(numeroSemana.ToString().Length == 1)
                     lote.lote += "0";
                 lote.lote += numeroSemana.ToString();
@@ -42,6 +43,8 @@ namespace CadastroAPI.Service
 
             }
 
+            lote.lote += (lote.sufixo !=null)? lote.sufixo : ""; 
+            lote.semana = numeroSemana;
             var insertedOrder = await _loteRepository.Insert(lote);
             return insertedOrder;
         }

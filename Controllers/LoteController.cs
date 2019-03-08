@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using CadastroAPI.Models;
@@ -46,10 +47,16 @@ namespace CadastroAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TbLoteCadastro lote)
         {
+            try{
             var newlote = await _loteService.AddAsync(lote);
             if(newlote == null)
                 return NotFound();
             return Ok(newlote);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
         
     }
