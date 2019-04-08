@@ -42,11 +42,11 @@ namespace CadastroAPI.Models.Repository
             sSql = "INSERT INTO [SPI_TB_CLONE_CLASSIFICACAO_POR_CLONE] ([cloneId],[classificacaoId],[altura] ";
             sSql = sSql + " ,[diametroColo],[quantidadePares],[angulo],[quantidadeRamificacoes],[presencaBifurcacao],[coloracao] ";
             sSql = sSql + " ,[tamanhoRamificacao],[posicaoRamificacao],[danosAnatomicos],[manchasFoliares],[tamanhoAreaFoliar] ";
-            sSql = sSql + " ,[espacamentoBandeja],[rotaId],[tempoGalpao],[tempoFase]) ";
+            sSql = sSql + " ,[espacamentoBandeja],[rotaId],[tempoGalpao],[tempoFase],[diametroRamificacao]) ";
             sSql = sSql + " VALUES (@cloneId,@classificacaoId,@altura,@diametroColo,@quantidadePares ";
             sSql = sSql + " ,@angulo,@quantidadeRamificacoes,@presencaBifurcacao,@coloracao,@tamanhoRamificacao,@posicaoRamificacao ";
             sSql = sSql + " ,@danosAnatomicos,@manchasFoliares,@tamanhoAreaFoliar,@espacamentoBandeja,@rotaId ";
-            sSql = sSql + " ,@tempoGalpao,@tempoFase) ";
+            sSql = sSql + " ,@tempoGalpao,@tempoFase,@diametroRamificacao) ";
             sSql = sSql + " SELECT @@IDENTITY ";
 
             
@@ -73,7 +73,7 @@ namespace CadastroAPI.Models.Repository
             sSql = sSql + " ,[presencaBifurcacao] = @presencaBifurcacao,[coloracao] = @coloracao,[tamanhoRamificacao] = @tamanhoRamificacao ";
             sSql = sSql + " ,[posicaoRamificacao] = @posicaoRamificacao,[danosAnatomicos] = @danosAnatomicos,[manchasFoliares] = @manchasFoliares ";
             sSql = sSql + " ,[tamanhoAreaFoliar] = @tamanhoAreaFoliar,[espacamentoBandeja] = @espacamentoBandeja,[rotaId] = @rotaId ";
-            sSql = sSql + " ,[tempoGalpao] = @tempoGalpao,[tempoFase] = @tempoFase ";
+            sSql = sSql + " ,[tempoGalpao] = @tempoGalpao,[tempoFase] = @tempoFase, [diametroRamificacao] = @diametroRamificacao ";
             sSql = sSql + " WHERE [id] = @id ";
 
             

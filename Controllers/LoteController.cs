@@ -35,6 +35,15 @@ namespace CadastroAPI.Controllers
             return Ok(lote);
         }
 
+        [HttpGet("OrdemProducao/{ordemProducaoId}")]
+        public async Task<IActionResult> GetLoteSemanaVigente(long ordemProducaoId)
+        {
+            var lote = await _loteService.GetOrdemProducaoIdListAsync(ordemProducaoId);
+            if(lote == null || lote.Count() == 0)
+                return NotFound();
+            return Ok(lote);
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetList()
         {
@@ -52,6 +61,21 @@ namespace CadastroAPI.Controllers
             if(newlote == null)
                 return NotFound();
             return Ok(newlote);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("{loteId}")]
+        public async Task<IActionResult> Delete(long loteId)
+        {
+            try{
+
+                if(! await _loteService.DeleteAsync(loteId))
+                    throw new Exception(" Não foi possivel deletar o lote desejado ");
+                return Ok();
             }
             catch (Exception ex)
             {

@@ -31,6 +31,12 @@ namespace CadastroAPI.Service
             return ordemList;
         }
 
+        public async Task<IEnumerable<TbOrdemDeProducaoCadastro>> GetProcuraAsync(string opNome)
+        {
+            var ordemList = await _ordemRepository.GetProcuraPorNomeOP(opNome);
+            return ordemList;
+        }
+
         public async Task<TbOrdemDeProducaoCadastro> UpdateAsync(TbOrdemDeProducaoCadastro ordem)
         {
             var updatedOrdem = await _ordemRepository.Update(ordem);

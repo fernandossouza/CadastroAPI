@@ -14,6 +14,7 @@ namespace CadastroAPI.Models
         public string coloracao{get;set;}
         public double tamanhoRamificacao{get;set;}
         public double posicaoRamificacao{get;set;}
+        public double diametroRamificacao{get;set;}
         public string danosAnatomicos{get;set;}
         public string manchasFoliares{get;set;}
         public double tamanhoAreaFoliar{get;set;}

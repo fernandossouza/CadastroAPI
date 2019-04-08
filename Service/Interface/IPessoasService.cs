@@ -9,5 +9,6 @@ namespace CadastroAPI.Service.Interface
         Task<IEnumerable<TbPessoasCadastro>> GetPessoa();
         Task<TbPessoasCadastro> GetPessoa(int id);
         Task<TbPessoasCadastro> PutPessoa(int id, TbPessoasCadastro pessoa);
+        Task<string> GetRfidCracha(string mesa);
     }
 }

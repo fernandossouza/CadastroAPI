@@ -55,6 +55,25 @@ namespace CadastroAPI.Controllers
             }
         }
 
+         //GET: api/Pessoas/cracha/Mesa101
+        [HttpGet("cracha/{mesa}")]
+        public async Task<IActionResult> GetCrachaRFID(string mesa)
+        {
+            try
+            {
+                var crachaRFID = await _PessoasService.GetRfidCracha(mesa);
+
+                if (crachaRFID != null)
+                    return Ok(new {rfid= crachaRFID});
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         //PUT: api/Pessoas/id
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPessoa(int id, [FromBody]TbPessoasCadastro pessoa)

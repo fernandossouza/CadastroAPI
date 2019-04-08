@@ -76,7 +76,7 @@ namespace CadastroAPI.Controllers
 
         // GET api/rotas
         [HttpGet()]
-        public async Task<IActionResult> GetRotas()
+        public async Task<IActionResult> GetRotas([FromQuery] int draw, [FromQuery] DataTableAjaxPostModel t)
         {
             try
             {

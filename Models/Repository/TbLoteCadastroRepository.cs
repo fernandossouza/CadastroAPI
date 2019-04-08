@@ -24,6 +24,21 @@ namespace CadastroAPI.Models.Repository
             IEnumerable<TbLoteCadastro> orderList;
             string sSql = "SELECT * ";
             sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_LOTE_CADASTRO]";
+            sSql += " WHERE status ='true' ";
+
+            using(IDbConnection db = new SqlConnection(_connectionString)){
+                orderList = await db.QueryAsync<TbLoteCadastro>(sSql);
+            }
+
+            return orderList;
+        }
+
+        public async Task<IEnumerable<TbLoteCadastro>> GetPorOrdemProducaoIdList(long ordemProducaoId)
+        {
+            IEnumerable<TbLoteCadastro> orderList;
+            string sSql = "SELECT * ";
+            sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_LOTE_CADASTRO]";
+            sSql += " WHERE [ordemProducaoId] ="+ ordemProducaoId;
 
             using(IDbConnection db = new SqlConnection(_connectionString)){
                 orderList = await db.QueryAsync<TbLoteCadastro>(sSql);
@@ -57,7 +72,7 @@ namespace CadastroAPI.Models.Repository
             IEnumerable<TbLoteCadastro> ordem;
             string sSql = "SELECT * ";
             sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_Lote_CADASTRO]";
-            sSql += "WHERE id = " + id.ToString();
+            sSql += "WHERE status ='true' AND id = " + id.ToString();
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -75,7 +90,7 @@ namespace CadastroAPI.Models.Repository
             IEnumerable<TbLoteCadastro> ordem;
             string sSql = "SELECT * ";
             sSql += "FROM [SPI_TB_Lote_CADASTRO]";
-            sSql += "WHERE semana = " + numeroSemana.ToString();
+            sSql += "WHERE status ='true' AND semana = " + numeroSemana.ToString();
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -88,22 +103,22 @@ namespace CadastroAPI.Models.Repository
             return ordem;
         }
 
-        // public async Task<TbOrdemDeProducaoCadastro> Update(TbOrdemDeProducaoCadastro ordem)
-        // {
-        //     long updatedRow;
-        //     string sSql = "UPDATE [SPI_TB_ORDEMDEPRODUCAO_CADASTRO]";
-        //     sSql += " SET [OP] = @op, [qntMudas] = @qntMudas, [qntProduzida] =  @qntProduzida, [qntPerdida] = @qntPerdida, [idClone] = @idClone";
-        //     sSql += " WHERE [id] = @id";
+        public async Task<bool> delete(TbLoteCadastro ordem)
+        {
+            long updatedRow;
+            string sSql = "UPDATE [SPI_TB_Lote_CADASTRO] ";
+            sSql += " SET [status] = 'false' ";
+            sSql += " WHERE [id] = @id";
 
-        //     using (IDbConnection db = new SqlConnection(_connectionString))
-        //     {
-        //         updatedRow = await db.ExecuteAsync(sSql, ordem);
-        //     }
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                updatedRow = await db.ExecuteAsync(sSql, ordem);
+            }
 
-        //     if(updatedRow > 0)
-        //         return ordem;
+            if(updatedRow > 0)
+                return true;
 
-        //     return null;
-        // }
+            return false;
+        }
     }
 }

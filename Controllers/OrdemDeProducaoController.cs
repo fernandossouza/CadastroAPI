@@ -34,6 +34,15 @@ namespace CadastroAPI.Controllers
             return Ok(ordemList);
         }
 
+        [HttpGet("Procura/")]
+        public async Task<IActionResult> GetProcuarList([FromQuery] string op)
+        {
+            var ordemList = await _ordemService.GetProcuraAsync(op);
+            if(ordemList == null || ordemList.Count() == 0)
+                return NotFound();
+            return Ok(ordemList);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] TbOrdemDeProducaoCadastro ordem)
         {

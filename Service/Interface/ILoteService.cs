@@ -10,5 +10,7 @@ namespace CadastroAPI.Service.Interface
         Task<TbLoteCadastro> GetAsync(long id);
         Task<IEnumerable<TbLoteCadastro>> GetSemanaVigenteAsync();
         Task<IEnumerable<TbLoteCadastro>> GetListAsync();
+        Task<IEnumerable<TbLoteCadastro>> GetOrdemProducaoIdListAsync(long ordemProducaoId);
+        Task<bool> DeleteAsync(long loteId);
     }
 }

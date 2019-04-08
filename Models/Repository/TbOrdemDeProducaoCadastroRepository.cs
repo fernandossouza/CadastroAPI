@@ -72,6 +72,24 @@ namespace CadastroAPI.Models.Repository
             return ordem.FirstOrDefault();
         }
 
+        public async Task<IEnumerable<TbOrdemDeProducaoCadastro>> GetProcuraPorNomeOP(string opNome)
+        {
+            IEnumerable<TbOrdemDeProducaoCadastro> ordem;
+            string sSql = "SELECT * ";
+            sSql += "FROM [SPI_DB_CADASTROS].[dbo].[SPI_TB_ORDEMDEPRODUCAO_CADASTRO]";
+            sSql += "WHERE op like '%" + opNome+"%'";
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                ordem = await db.QueryAsync<TbOrdemDeProducaoCadastro>(sSql);
+            }
+
+            if(ordem == null || ordem.Count() == 0)
+                return null;
+            
+            return ordem;
+        }
+
         public async Task<TbOrdemDeProducaoCadastro> Update(TbOrdemDeProducaoCadastro ordem)
         {
             long updatedRow;

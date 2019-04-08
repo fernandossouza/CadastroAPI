@@ -7,6 +7,7 @@ namespace CadastroAPI.Service.Interface
     {
         Task<TbOrdemDeProducaoCadastro> AddAsync(TbOrdemDeProducaoCadastro ordem);
         Task<TbOrdemDeProducaoCadastro> GetAsync(long id);
+        Task<IEnumerable<TbOrdemDeProducaoCadastro>> GetProcuraAsync(string opNome);
         Task<TbOrdemDeProducaoCadastro> UpdateAsync(TbOrdemDeProducaoCadastro ordem);
         Task<IEnumerable<TbOrdemDeProducaoCadastro>> GetListAsync();
     }

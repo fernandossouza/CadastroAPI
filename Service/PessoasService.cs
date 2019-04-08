@@ -10,10 +10,11 @@ namespace CadastroAPI.Service
     public class PessoasService : IPessoasService
     {
         private readonly TbPessoasCadastroRepository _TbPessoasCadastroRepository;
-
-        public PessoasService(TbPessoasCadastroRepository tbPessoasCadastroRepository)
+        private readonly TbPessoaInterfaceRepository _TbPessoaInterfaceRepository;
+        public PessoasService(TbPessoasCadastroRepository tbPessoasCadastroRepository, TbPessoaInterfaceRepository tbPessoaInterfaceRepository)
         {
             _TbPessoasCadastroRepository = tbPessoasCadastroRepository;
+            _TbPessoaInterfaceRepository = tbPessoaInterfaceRepository;
         }
 
         //Retorna todas as pessoas cadastradas
@@ -30,6 +31,36 @@ namespace CadastroAPI.Service
             TbPessoasCadastro pessoa = null;
             pessoa = await _TbPessoasCadastroRepository.GetPessoa(id);
             return pessoa;
+        }
+
+        public async Task<string> GetRfidCracha(string mesa)
+        {
+            if(string.IsNullOrWhiteSpace(mesa))
+                throw new Exception("Erro o nome da mesa está vazio");
+
+            TbPessoaInterface cracha = new TbPessoaInterface();
+            cracha.mesa = mesa;
+
+            cracha = await _TbPessoaInterfaceRepository.Insert(cracha);
+
+            if(cracha.id<=0)
+                throw new Exception("Erro ao tentar inserir a requisição no banco de dados");
+
+            // aguardando a leitura do cracha na mesa de estaqueamento, aguarda até 10 segundo para cancelar a requisição
+            for(int i=0;i<10;i++)
+            {
+                System.Threading.Thread.Sleep(1000);
+
+                var crachaDb = await _TbPessoaInterfaceRepository.GetRfidPorMesa(cracha.id);
+
+                if(crachaDb != null)
+                {
+                    await _TbPessoaInterfaceRepository.Update(crachaDb);
+                    return crachaDb.rfid; 
+                }
+            }
+
+            return null;
         }
 
         public async Task<TbPessoasCadastro> PutPessoa(int id, TbPessoasCadastro mod)

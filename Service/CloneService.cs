@@ -140,7 +140,8 @@ namespace CadastroAPI.Service
                 {
 
                     var classificacaoPorClone = classificacao.classificacaoPorClone;
-                    classificacaoPorClone.classificacaoId = classificacaoDb.id; 
+                    classificacaoPorClone.classificacaoId = classificacaoDb.id;
+                    classificacaoPorClone.id = classificacaoPorCloneDb.id; 
                     
                     classificacaoPorClone = await _TbCloneClassificacaoXCloneRepository.UpdateClassificacaoPorClone(classificacaoPorClone);
 

@@ -53,6 +53,7 @@ namespace CadastroAPI
             services.AddTransient<TbOrdemDeProducaoCadastroRepository, TbOrdemDeProducaoCadastroRepository>();
             services.AddTransient<TbRotasTrechoInicioRepository,TbRotasTrechoInicioRepository>();
             services.AddTransient<TbLoteCadastroRepository, TbLoteCadastroRepository>();
+            services.AddTransient<TbPessoaInterfaceRepository,TbPessoaInterfaceRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

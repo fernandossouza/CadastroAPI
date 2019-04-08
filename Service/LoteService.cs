@@ -49,6 +49,20 @@ namespace CadastroAPI.Service
             return insertedOrder;
         }
 
+        public async Task<bool> DeleteAsync(long loteId)
+        {
+            var lote = await GetAsync(loteId);
+
+            if(lote == null)
+                throw new CultureNotFoundException();
+
+            if(await _loteRepository.delete(lote))
+                return true;
+
+            return false;
+
+        }
+
         public async Task<TbLoteCadastro> GetAsync(long id)
         {
             var lote = await _loteRepository.Get(id);
@@ -58,6 +72,12 @@ namespace CadastroAPI.Service
         public async Task<IEnumerable<TbLoteCadastro>> GetListAsync()
         {
             var lote = await _loteRepository.GetList();
+            return lote;
+        }
+
+        public async  Task<IEnumerable<TbLoteCadastro>> GetOrdemProducaoIdListAsync(long ordemProducaoId)
+        {
+            var lote = await _loteRepository.GetPorOrdemProducaoIdList(ordemProducaoId);
             return lote;
         }
 
